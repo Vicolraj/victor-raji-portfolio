@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from 'node:crypto'
+import { scryptSync, timingSafeEqual } from 'node:crypto'
 import { SignJWT, jwtVerify } from 'jose'
 import { Octokit } from '@octokit/rest'
 import { portfolioContentSchema } from '../../src/types/content'
@@ -53,11 +53,18 @@ export const readCookie = (request: AdminRequest, name: string) => {
   return decodeURIComponent(cookieValue.split('=').slice(1).join('='))
 }
 
-export const hashPassword = (password: string) => createHash('sha256').update(password).digest('hex')
+const derivePasswordHash = (password: string, salt: string) =>
+  scryptSync(password, salt, 64, { N: 16384, r: 8, p: 1 }).toString('base64')
 
 export const verifyPassword = (password: string) => {
-  const expectedHash = getEnv('ADMIN_PASSWORD_HASH')
-  const passwordHash = hashPassword(password)
+  const expected = getEnv('ADMIN_PASSWORD_HASH')
+  const [salt, expectedHash] = expected.split(':')
+
+  if (!salt || !expectedHash) {
+    return false
+  }
+
+  const passwordHash = derivePasswordHash(password, salt)
 
   const left = Buffer.from(passwordHash)
   const right = Buffer.from(expectedHash)

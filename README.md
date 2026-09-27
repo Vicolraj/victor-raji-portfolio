@@ -54,12 +54,12 @@ Set these in local `.env` and in Vercel project settings:
 
 ### Password hash setup
 
-`ADMIN_PASSWORD_HASH` expects a SHA-256 hex digest of the admin password.
+`ADMIN_PASSWORD_HASH` expects `salt:hash` where hash is scrypt output in base64.
 
 Example with Node:
 
 ```bash
-node -e "console.log(require('crypto').createHash('sha256').update('your-password').digest('hex'))"
+node -e "const crypto=require('crypto');const salt=crypto.randomBytes(16).toString('hex');const hash=crypto.scryptSync('your-password', salt, 64).toString('base64');console.log(`${salt}:${hash}`)"
 ```
 
 ### Session secret setup
