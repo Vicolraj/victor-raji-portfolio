@@ -1,0 +1,18 @@
+[
+  {
+    "category": "Frontend",
+    "items": ["React", "Next.js", "TypeScript", "Blazor", "TailwindCSS"]
+  },
+  {
+    "category": "Backend",
+    "items": ["C# / ASP.NET Core", "Node.js / Express", "SQL Server", "Firebase", "Supabase", "NeonDB"]
+  },
+  {
+    "category": "Animation",
+    "items": ["Rive", "Framer Motion", "After Effects", "CSS Animation", "Three.js", "Lottie", "GSAP"]
+  },
+  {
+    "category": "Design & Tools",
+    "items": ["Figma", "Photoshop", "CorelDraw", "Git / GitHub", "Vite", "Vercel"]
+  }
+]

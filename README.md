@@ -1,32 +1,80 @@
-# React + TypeScript + Vite
+# Victor Raji Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Vite + React + TypeScript portfolio app with a public site and a private admin panel.
 
-Currently, two official plugins are available:
+## Routes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `/` with anchor sections `/#work`, `/#tech`, `/#contact`
+- `/admin/login`
+- `/admin`
 
-## React Compiler
+## Local development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Production build:
+
+```bash
+npm run build
+npm run lint
+```
+
+## Content model
+
+Source content is stored in JSON files:
+
+- `src/content/profile.json`
+- `src/content/projects.json`
+- `src/content/stack.json`
+
+Types and validation schemas live in `src/types/content.ts`.
+
+## Admin authentication and save flow
+
+The admin area uses serverless handlers in `api/admin`:
+
+- `login.ts` checks password, applies basic rate limiting, and sets an httpOnly signed session cookie.
+- `save.ts` verifies session cookie and validates submitted content with zod.
+- `logout.ts` clears the session cookie.
+
+Content saves are committed to GitHub with Octokit by updating the JSON files on the `main` branch.
+
+## Required environment variables
+
+Set these in local `.env` and in Vercel project settings:
+
+- `GITHUB_TOKEN`
+- `GITHUB_OWNER`
+- `GITHUB_REPO`
+- `ADMIN_PASSWORD_HASH`
+- `SESSION_SECRET`
+
+### Password hash setup
+
+`ADMIN_PASSWORD_HASH` expects a SHA-256 hex digest of the admin password.
+
+Example with Node:
+
+```bash
+node -e "console.log(require('crypto').createHash('sha256').update('your-password').digest('hex'))"
+```
+
+### Session secret setup
+
+Use a long random string for `SESSION_SECRET`.
+
+## Vercel deployment notes
+
+- Keep `api/admin/*` deployed as serverless endpoints.
+- Store all environment variables in Vercel Project Settings.
+- Never expose GitHub token or session secret in client code.
+
+## Git-backed content workflow
+
+1. Log in to `/admin/login`.
+2. Edit projects, stack, or profile in `/admin`.
+3. Confirm **Commit updates**.
+4. The API validates payload and writes updates to `src/content/*.json` on `main`.
