@@ -1,0 +1,13 @@
+{
+  "name": "Victor Raji",
+  "role": "Fullstack Developer",
+  "bio": "I build things for the web from backends to frontends, from animated components to production-grade cloud infrastructure. 3+ years shipping apps people actually use.",
+  "stats": [
+    { "label": "Years building", "value": "3+" },
+    { "label": "Projects shipped", "value": "15+" },
+    { "label": "Tech domains", "value": "5" }
+  ],
+  "email": "vicolraj@gmail.com",
+  "github": "github.com/vicolraj",
+  "linkedin": "linkedin.com/in/vicolraj"
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "title": "Infinix Hot 60",
+    "category": "Marketing",
+    "tech": ["React", "Framer Motion"],
+    "description": "A product landing page for Infinix Hot 60,",
+    "year": 2025,
+    "live": "infinixhot60.vercel.app",
+    "github": "Vicolraj/Infinixhot60"
+  },
+  {
+    "title": "PrayPersian",
+    "category": "Fixing",
+    "tech": ["React", "Vercel"],
+    "description": "Corrected API calling and fixed the deployment pipeline,",
+    "year": 2026,
+    "live": "praypersian.com"
+  },
+  {
+    "title": "Isimemen",
+    "category": "Fixing",
+    "tech": ["React", "Vercel"],
+    "description": "Description pending, ask Victor",
+    "year": 2026,
+    "live": "isimemen.com"
+  },
+  {
+    "title": "VicAutos",
+    "category": "Fixing",
+    "tech": ["React", "Vercel"],
+    "description": "Took an automobile website concept from an Instagram design post and turned it into a working, live landing page,",
+    "year": 2024,
+    "live": "vicolraj.github.io/VicAutos",
+    "github": "Vicolraj/VicAutos"
+  },
+  {
+    "title": "Smoothie Juicy",
+    "category": "Fixing",
+    "tech": ["React", "Vercel"],
+    "description": "Brought an animation-heavy beverage marketing concept to life as a fully working site,",
+    "year": 2025,
+    "live": "smoothie-juicy.vercel.app",
+    "github": "Vicolraj/SmoothieJuicy"
+  }
+]
